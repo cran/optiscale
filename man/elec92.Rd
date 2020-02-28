@@ -33,7 +33,7 @@ This data set contains several variables from the Center for
 The full data set from which these observations and variables were extracted is
    available on the Study Page for the American National Election Studies
    1992 Time Series Study, at 
-   \url{http://www.electionstudies.org/studypages/1992prepost/1992prepost.htm}.
+   \url{https://electionstudies.org/data-center/1992-time-series-study/}.
 }
 \references{
 Jacoby, William G. (1999) \dQuote{Levels of Measurement and Political Research: An Optimistic View.}

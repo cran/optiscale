@@ -18,8 +18,8 @@ This package provides tools to perform an optimal scaling analysis
 \tabular{ll}{
 Package: \tab optiscale\cr
 Type: \tab Package\cr
-Version: \tab 1.1\cr
-Date: \tab 2014-07-14\cr
+Version: \tab 1.2\cr
+Date: \tab 2020-02-26\cr
 License: \tab GPL-2 \cr
 LazyLoad: \tab yes\cr
 }

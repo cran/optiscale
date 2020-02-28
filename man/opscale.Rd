@@ -47,9 +47,6 @@ opscale(x.qual, x.quant = seq(1:length(x.qual)), level = 1,
    If \code{TRUE} then rescale optimally scaled vector 
    to same mean and standard deviation as \code{x.qual}.
 }
-  \item{\dots}{
-   Any additional arguments.
-}
 }
 \details{
    The \code{opscale()} function operationalizes a measurement theory

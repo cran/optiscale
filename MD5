@@ -1,11 +1,11 @@
-a336472ff95278369be679abb8e8a360 *DESCRIPTION
-eb496b3dda4743d6451bbe19f91167ca *NAMESPACE
+5b221557355030603c47f68dcb404c71 *DESCRIPTION
+10f13f7632a3ccac48c0a7361f5ec2f2 *NAMESPACE
 eedae185b2108f1e1a16126fdd94532d *R/opscalev16.R
 c57a9afcfdc263d6f1370d5d34df7cff *data/elec92.rda
-18aab6516ec5859164fc9b473ab4aabe *man/elec92.Rd
+247a780efa7a5d573fb5955fa2183a2c *man/elec92.Rd
 1c5d9bf414148649fdd1c1c2f041729f *man/methods.Rd
-f1eb9a59b274d144c7cec857c414fabd *man/opscale.Rd
-201490a11a35083ebfe43a64e9144ad6 *man/optiscale-package.Rd
+9b1862035d5c2b169692554edfae93b3 *man/opscale.Rd
+f9e5eb4612f71d3362cbb27b477f126c *man/optiscale-package.Rd
 42ea5a86e61b77c90c3f3bd46125f044 *man/os.plot.Rd
 1f5805bab8f4e980168483743c1bb1f7 *man/shepard.Rd
 663b089cb9131b35f54ea8102df8c291 *man/stress.Rd
