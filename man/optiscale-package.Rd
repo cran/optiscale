@@ -18,8 +18,8 @@ This package provides tools to perform an optimal scaling analysis
 \tabular{ll}{
 Package: \tab optiscale\cr
 Type: \tab Package\cr
-Version: \tab 1.2\cr
-Date: \tab 2020-02-26\cr
+Version: \tab 1.2.2\cr
+Date: \tab 2021-02-02\cr
 License: \tab GPL-2 \cr
 LazyLoad: \tab yes\cr
 }
@@ -33,7 +33,7 @@ LazyLoad: \tab yes\cr
    William G. Jacoby
 
 Maintainer: 
-   William G. Jacoby <\email{Jacoby@msu.edu}>
+   William G. Jacoby <\email{wm.g.jacoby@gmail.com}>
 }
 \references{
    Young, Forrest W. (1981) \dQuote{Quantitative Analysis of
