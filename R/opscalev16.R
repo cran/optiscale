@@ -1,6 +1,6 @@
 #####
 #####
-###     Function "opscale" 
+###     Function "opscale"
 ###     Version 1.1.
 ###     July 30, 2014
 ###
@@ -12,7 +12,7 @@
 #####
 #####
 ###     The following five functions, "init.os.1",
-###     "init.os.2", "create.u.1", "create.u.2", 
+###     "init.os.2", "create.u.1", "create.u.2",
 ###     and "test.mono", are used in the "opscale"
 ###     function.
 #####
@@ -20,29 +20,29 @@
 
 ###
 ###   Function creating initial OS values
-###   for discrete data   
+###   for discrete data
 ###
 
    init.os.1 <- function (x1, x2) {
       os <- t(as.matrix(tapply(x2, x1, mean, na.rm = T)))
       os
    }
-   
+
 ###
 ###   Function creating initial OS values
-###   for continuous data   
+###   for continuous data
 ###
 
    init.os.2 <- function (x1, x2) {
       for (i in sort(unique(x1))) {
          if (i == min(x1, na.rm = TRUE)) {os <- c()
-                          orig <- c() 
+                          orig <- c()
          }
      {os <- c(os, sort(unique(x2[x1 == i])))
       orig <- c(orig, rep(i, length(sort(unique(x2[x1 == i])))))
      }
      }
-   os <- rbind(os, orig)   
+   os <- rbind(os, orig)
    os
    }
 
@@ -73,14 +73,14 @@
 
 ###
 ###   Function for comparing adjacent values
-###   of OS data. Average downward 
+###   of OS data. Average downward
 ###   where necessary, to make OS
 ###   values weakly monotonic to
 ###   input qualitative values
 ###
 
    test.mono <- function (u, os) {
-     
+
      categ.n <- apply(u,2,sum, na.rm = T)
 
      for (i in 2:length(os[1,])) {
@@ -107,35 +107,35 @@ sum(categ.n[(i-i2):i])
 ###
 ###          x.qual   A vector of data values, assumed nominal or
 ###                   ordinal level measurement
-###         x.quant   A vector of quantitative values, probably 
+###         x.quant   A vector of quantitative values, probably
 ###                   obtained as model estimates
 ###           level   Measurement level of qualitative vector, with
-###                   1 = nominal and 2 = ordinal                  
+###                   1 = nominal and 2 = ordinal
 ###         process   Measurement process of qualitative vector, with
-###                   1 = discrete and 2 = continuous  
+###                   1 = discrete and 2 = continuous
 ###       na.impute   FALSE (default) = leave missing values in qualitative
-###                   vector as missing in optimally scaled vector, 
-###                   TRUE = assign quantitative vector values to 
-###                   optimally scaled vector for missing entries in 
+###                   vector as missing in optimally scaled vector,
+###                   TRUE = assign quantitative vector values to
+###                   optimally scaled vector for missing entries in
 ###                   qualitative vector
 ###       na.assign   TRUE (default) = if quantitative value is missing, assign
 ###                   mean of optimally scaled values for the corresponding
 ###                   qualitative value to the optimally scaled vector,
 ###                   FALSE = if quantitative value is missing, leave optimally
 ###                   scaled value missing, even if qualitative value is present
-###         rescale   TRUE (default) = rescale optimally scaled values to the same 
-###                   mean and standard deviation as the values in the original 
+###         rescale   TRUE (default) = rescale optimally scaled values to the same
+###                   mean and standard deviation as the values in the original
 ###                   qualitative vector.  FALSE = do not rescale optimally scaled
 ###                   vector
 #####
 #####
 
 
-opscale <- function (x.qual, 
-                     x.quant=seq(1:length(x.qual)), 
-                     level=1, 
-                     process=1, 
-                     na.impute=FALSE, 
+opscale <- function (x.qual,
+                     x.quant=seq(1:length(x.qual)),
+                     level=1,
+                     process=1,
+                     na.impute=FALSE,
                      na.assign=TRUE,
                      rescale=TRUE
                      ) {
@@ -147,29 +147,29 @@ opscale <- function (x.qual,
 
    if (length(x.qual) != length(x.quant))
      stop ("Input vectors must be same length")
-   
+
    if (!is.numeric(x.quant))
      stop ("Quantitative vector must be numeric")
-   
+
    if (!(level==1 | level==2))
       stop ("Level argument must be 1 or 2")
-      
+
    if (!(process==1 | process==2))
       stop ("Process argument must be 1 or 2")
 
 ###
 ###   Assign name of qualitative vector to object "varname"
 ###
-      
+
    varname <- deparse(substitute(x.qual))
-   
+
 ###
 ###   Test qualitative vector for character entries.
 ###   If necessary, convert to numeric entries
 ###
 
    x.qual.char <- c()
-   
+
    if (!is.numeric(x.qual)) {
       x.qual.char <- c(x.qual.char, x.qual)
       x.qual <- as.numeric(as.factor(x.qual))
@@ -187,10 +187,10 @@ opscale <- function (x.qual,
       }
 
 ###
-###   Test for qualitative values 
+###   Test for qualitative values
 ###   that have only missing quantitative
 ###   values in corresponding entries. When
-###   this occurs, assign missing value to 
+###   this occurs, assign missing value to
 ###   entry in qualitative vector
 ###
 
@@ -263,11 +263,11 @@ opscale <- function (x.qual,
      os.data[which(is.na(x.quant))] <-
      (x.qual[which(is.na(x.quant))] %*%
 matrix(1,1,length(sort(unique(x.qual)))) ==
-     (matrix(1, length(which(is.na(x.quant))), 1) %*% 
-     t(as.matrix(sort(unique(x.qual)))))) %*% 
+     (matrix(1, length(which(is.na(x.quant))), 1) %*%
+     t(as.matrix(sort(unique(x.qual)))))) %*%
      as.matrix(tapply(os.data, x.qual, mean, na.rm = T))
      }
-   
+
    if (na.assign == FALSE) {os.data[which(is.na(x.quant))] <- NA}
 
 ###
@@ -280,7 +280,7 @@ matrix(1,1,length(sort(unique(x.qual)))) ==
 
    os.raw.mean <- mean(os.data, na.rm = TRUE)
    os.raw.sd <- sd(os.data, na.rm = TRUE)
-   
+
    if (rescale == TRUE) {
       os.data <- (as.vector(scale(os.data)) * qual.sd) +
       qual.mean
@@ -292,14 +292,14 @@ matrix(1,1,length(sort(unique(x.qual)))) ==
 ###
 
    if (length(x.qual.char) > 0) {x.qual <- x.qual.char}
-   
+
    if (level == 1) {measlev <- "Nominal"}
       else {measlev <- "Ordinal"}
-      
+
    if (process == 1) {measproc <- "Discrete"}
       else {measproc <- "Continuous"}
 
-   opscaled <- list(qual = x.qual, 
+   opscaled <- list(qual = x.qual,
                     quant = x.quant,
                     os = os.data,
                     varname = varname,
@@ -311,7 +311,7 @@ matrix(1,1,length(sort(unique(x.qual)))) ==
                     )
 
    class(opscaled) <- "opscale"
-   
+
    opscaled
 
 }
@@ -327,10 +327,10 @@ matrix(1,1,length(sort(unique(x.qual)))) ==
 
    if (length(x.qual) != length(os.data))
      stop ("Input vectors must be same length")
-   
+
    if (!is.numeric(os.data))
      stop ("Optimally scaled vector must be numeric")
-   
+
       x.qual.values <- c()
          if (!is.numeric(x.qual)) {
             x.qual.values <- levels(as.factor(x.qual))
@@ -368,13 +368,13 @@ matrix(1,1,length(sort(unique(x.qual)))) ==
                labels = x.qual.values,
                rot = 45))
             )
-       }      
+       }
       osplot
       }
 
 
 ###
-###   Function to 
+###   Function to
 ###   produce a Shepard diagram
 ###   for the optimally scaled vector
 ###
@@ -384,10 +384,10 @@ matrix(1,1,length(sort(unique(x.qual)))) ==
 
    if (length(x.quant) != length(os.data))
      stop ("Input vectors must be same length")
-   
+
    if (!is.numeric(x.quant))
      stop ("Quantitative vector must be numeric")
-   
+
    if (!is.numeric(os.data))
      stop ("Optimally scaled vector must be numeric")
 
@@ -399,25 +399,25 @@ matrix(1,1,length(sort(unique(x.qual)))) ==
          main = main.title
          )
       shepplot
-      }  
-   
+      }
+
 
 ###
-###   Function to 
+###   Function to
 ###   calculate Stress statistics
 ###
 
-   calc.stress <- function (quant, os, 
-      rescale = FALSE, 
-      os.raw.mean = mean(os, na.rm = TRUE), 
+   calc.stress <- function (quant, os,
+      rescale = FALSE,
+      os.raw.mean = mean(os, na.rm = TRUE),
       os.raw.sd = sd(os, na.rm = TRUE))  {
 
    if (length(quant) != length(os))
      stop ("Input vectors must be same length")
-   
+
    if (!is.numeric(quant))
      stop ("Quantitative vector must be numeric")
-   
+
    if (!is.numeric(os))
      stop ("Optimally scaled vector must be numeric")
 
@@ -445,7 +445,7 @@ raw.stress)
       cat("Optimal Scaling Object for Variable", x$varname,":","\n\n")
       print(data.frame(x[1:3]))
       invisible(x)
-      }   
+      }
 
    summary.opscale <- function (object, ...) {
       x.qual.values <- c()
@@ -469,11 +469,11 @@ sum))
       rownames(values) <- NULL
       results <- list(values = values, varname = object$varname,
          measlev = object$measlev, measproc = object$measproc)
-      
+
       class(results) <- "summary.opscale"
       results
       }
-      
+
    print.summary.opscale <- function(x, ...) {
       cat("Optimal Transformation for Variable", x$varname,":","\n\n",
          "     Measurement Level: ", x$measlev, "\n",
@@ -481,9 +481,9 @@ sum))
       print(x$values)
       invisible(x)
       }
-   
+
    plot.opscale <- function (x, ...) {
-      os.plot(x$qual, x$os, 
+      os.plot(x$qual, x$os,
       main.title = paste("Optimal Transformation for Variable:", x$varname))
       }
 
@@ -492,21 +492,21 @@ sum))
 ###   stress coefficients and for producing
 ###   the Shepard diagram from an opscale object
 ###
-    
+
     stress <- function (x, ...) {
-      if (class(x) != "opscale")
+      if (!inherits(x, "opscale"))
          stop("Object must be of class 'opscale'")
        cat("Stress Values for Variable:", x$varname, "\n\n")
-       calc.stress(quant = x$quant, 
-          os = x$os, 
-          rescale = x$rescale, 
-          os.raw.mean = x$os.raw.mean, 
+       calc.stress(quant = x$quant,
+          os = x$os,
+          rescale = x$rescale,
+          os.raw.mean = x$os.raw.mean,
           os.raw.sd = x$os.raw.sd)
        }
-      
+
 
    shepard <- function (x, ...) {
-      if (class(x) != "opscale")
+      if (!inherits(x, "opscale"))
          stop("Object must be of class 'opscale'")
       shep.plot(x$quant, x$os,
       main.title = paste("Shepard Diagram for Variable:", x$varname))

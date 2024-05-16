@@ -5,5 +5,4 @@ S3method(plot, opscale)
 
 import(lattice)
 importFrom("stats", "sd")
-exportClass(opscale)
 export(opscale, calc.stress, os.plot, shep.plot, shepard, stress)
